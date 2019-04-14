@@ -118,7 +118,7 @@ class StockReceiveDialog(QtGui.QDialog):
 		lista = self.db.GetSupplierList()	
 		self.supplier = QtGui.QComboBox();
 		self.supplier.addItems(lista)
-		self.supplier.setCurrentIndex(kpm_common.IndexOf(lista, supplier))		
+		self.supplier.setCurrentIndex(int(supplier))	
 		self.supplier.setEditable(False)
 		self.form_layout6.addWidget(self.supplier)
 		self.layout.addLayout(self.form_layout6)						
