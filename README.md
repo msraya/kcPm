@@ -4,4 +4,4 @@ This is a Kicad Part Manager based on mysql connector writed in Python Qt4. It i
 
 Although it is under development, you can manage parts, categories, purchases, storage places, suppliers, etc.. and it even could make a full backup of the Database. In the future, you would be able to manage Kicad BOM and it eases prototype manufacturing.
 
-In the "contrib" folder you can find the configuration files for NSIS and py2exe in order you can convert the program to exe file under Windows systems.
+In the "contrib" folder you can find the configuration files for NSIS and py2exe in order you can convert the program to exe file under Windows systems. Also you get the database.sql file to recreate database in the server
