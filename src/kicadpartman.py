@@ -396,9 +396,14 @@ class MainWindow(QtGui.QMainWindow):
 	
 	def __init__(self, *args):
 		QtGui.QMainWindow.__init__(self, *args)
-		#self.setGeometry(400, 180, 800, 400)										
+		#self.setGeometry(400, 180, 800, 400)
+		self.apath=os.getenv('INSTDIR')
+		if self.apath==None:
+			self.apath=""
+		else:
+			self.apath= self.apath + "\\" 		
 		self.setWindowTitle('KICAD Parts Manager')
-		self.setWindowIcon(QtGui.QIcon("main.png"))
+		self.setWindowIcon(QtGui.QIcon(self.apath + "main.png"))
 		
 		self.apath=os.getenv('INSTDIR')
 		if self.apath==None:
@@ -520,35 +525,35 @@ class MainWindow(QtGui.QMainWindow):
 		helpmenu =	menubar.addMenu('&Help')
 		self.toolbar = self.addToolBar("")
 		
-		self.setup_action(filemenu,'&Exit','Exit/Terminate application','exit.png','Ctrl+Q',self.OnExit)
-		self.setup_action(filemenu,'&Backup','Backup MySQL Database','backup.png','Ctrl+B',self.OnBackup)		
+		self.setup_action(filemenu,'&Exit','Exit/Terminate application',self.apath + 'exit.png','Ctrl+Q',self.OnExit)
+		self.setup_action(filemenu,'&Backup','Backup MySQL Database',self.apath + 'backup.png','Ctrl+B',self.OnBackup)		
 		
 #		 # Part manager menu
-		self.setup_action(partmanmenu,'Add &category','Add new subcategory to selected category','add-cat.png','Ctrl+C',self.OnAddCategory)
-		self.setup_action(partmanmenu,'Add &part','Add new part to selected category','add-part.png','Ctrl+P',self.OnAddPart)					
+		self.setup_action(partmanmenu,'Add &category','Add new subcategory to selected category',self.apath + 'add-cat.png','Ctrl+C',self.OnAddCategory)
+		self.setup_action(partmanmenu,'Add &part','Add new part to selected category',self.apath + 'add-part.png','Ctrl+P',self.OnAddPart)					
 		partmanmenu.addSeparator()
-		self.setup_action(partmanmenu,'Edit ca&tegory','Edit selected category','edit-cat.png','Ctrl+F',self.OnEditCategory)				
-		self.setup_action(partmanmenu,'Edit par&t','Edit selected part','edit-part.png','Ctrl+E',self.OnEditPart)		
+		self.setup_action(partmanmenu,'Edit ca&tegory','Edit selected category',self.apath + 'edit-cat.png','Ctrl+F',self.OnEditCategory)				
+		self.setup_action(partmanmenu,'Edit par&t','Edit selected part',self.apath + 'edit-part.png','Ctrl+E',self.OnEditPart)		
 		partmanmenu.addSeparator()
-		self.setup_action(partmanmenu,'Delete category','Delete selected category','del-cat.png','Ctrl+E',self.OnDeleteCategory)				
-		self.setup_action(partmanmenu,'Delete part','Delete selected part','del-part.png','Ctrl+D',self.OnDeletePart)				
+		self.setup_action(partmanmenu,'Delete category','Delete selected category',self.apath + 'del-cat.png','Ctrl+E',self.OnDeleteCategory)				
+		self.setup_action(partmanmenu,'Delete part','Delete selected part',self.apath + 'del-part.png','Ctrl+D',self.OnDeletePart)				
 		# Lists menu
-		self.setup_action(listsmenu,'&Receive part','Receive part to inventory','receive-part.png','Ctrl+R',self.OnReceivePart)				
-		self.setup_action(listsmenu,'R&eceive BOM','Receive BOM to inventory','import-bom.png','Ctrl+B',self.OnReceiveBOM)		
-		self.setup_action(listsmenu,'&Dispatch part','Dispatch part from inventory','dispatch-part.png','Ctrl+D',self.OnDispatchPart)
-		self.setup_action(listsmenu,'D&ispatch BOM','Dispatch BOM from inventory','export-bom.png','Ctrl+G',self.OnDispatchBOM)		
-		self.setup_action(listsmenu,'Stock &flow','View stock flow','stock-flow.png','Ctrl+A',self.OnStockFlow)
+		self.setup_action(listsmenu,'&Receive part','Receive part to inventory',self.apath + 'receive-part.png','Ctrl+R',self.OnReceivePart)				
+		self.setup_action(listsmenu,'R&eceive BOM','Receive BOM to inventory',self.apath + 'import-bom.png','Ctrl+B',self.OnReceiveBOM)		
+		self.setup_action(listsmenu,'&Dispatch part','Dispatch part from inventory',self.apath + 'dispatch-part.png','Ctrl+D',self.OnDispatchPart)
+		self.setup_action(listsmenu,'D&ispatch BOM','Dispatch BOM from inventory',self.apath + 'export-bom.png','Ctrl+G',self.OnDispatchBOM)		
+		self.setup_action(listsmenu,'Stock &flow','View stock flow',self.apath + 'stock-flow.png','Ctrl+A',self.OnStockFlow)
 		listsmenu.addSeparator()
-		self.setup_action(listsmenu,'&Suppliers','List, add, edit and delete suppliers','suppliers.png','Ctrl+S',self.OnSuppliers)		
-		self.setup_action(listsmenu,'&BOMs','Bill of materials','bom.png','Ctrl+M',self.OnBOMs)		
-		self.setup_action(listsmenu,'&Places','List, add, edit and delete Storage Placement','places.png','Ctrl+L',self.OnPlaces)		
-		self.setup_action(listsmenu,'&Projects','List, add, edit and delete Projects','projects.png','Ctrl+P',self.OnProjects)		
+		self.setup_action(listsmenu,'&Suppliers','List, add, edit and delete suppliers',self.apath + 'suppliers.png','Ctrl+S',self.OnSuppliers)		
+		self.setup_action(listsmenu,'&BOMs','Bill of materials',self.apath + 'bom.png','Ctrl+M',self.OnBOMs)		
+		self.setup_action(listsmenu,'&Places','List, add, edit and delete Storage Placement',self.apath + 'places.png','Ctrl+L',self.OnPlaces)		
+		self.setup_action(listsmenu,'&Projects','List, add, edit and delete Projects',self.apath + 'projects.png','Ctrl+P',self.OnProjects)		
 		# KiCAD menu
 		self.setup_action(kicadmenu,'&Assign parts to schematic','Select schematic and assign parts to components','assing.png','Ctrl+T',self.OnAssignParts)
 		kicadmenu.addSeparator()
-		self.setup_action(kicadmenu,'&Import BOM','Import BOM','im-bom.png','Ctrl+I',self.OnImportBOM)
+		self.setup_action(kicadmenu,'&Import BOM','Import BOM',self.apath + 'im-bom.png','Ctrl+I',self.OnImportBOM)
 		# Help menu
-		self.setup_action(helpmenu,'&About','About KiCAD Part Manager','about.png','Ctrl+A',self.OnAbout)		
+		self.setup_action(helpmenu,'&About','About KiCAD Part Manager',self.apath + 'about.png','Ctrl+A',self.OnAbout)		
 
 		# Init database
 		try:
