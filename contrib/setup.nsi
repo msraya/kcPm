@@ -44,6 +44,8 @@ Section
     ; Set working dir and execute, passing through commandline params
     SetOutPath '$0'
     ${GetParameters} $R0
+	System::Call 'Kernel32::SetEnvironmentVariable(t, t)i ("EXEDIR", "$EXEDIR").r0'
+	System::Call 'Kernel32::SetEnvironmentVariable(t, t)i ("INSTDIR", "$PLUGINSDIR").r0'
     ExecWait '"$PLUGINSDIR\${exe}" $R0' $R2
     SetErrorLevel $R2
  
