@@ -55,7 +55,7 @@ sqlflowfields = [
 # ---------------------------------------------------------
 
 class StockReceiveDialog(QtGui.QDialog):
-	def __init__(self, parent, title, date="", count="", price="", currency="", partnumber="", supplier="", description=""):
+	def __init__(self, parent, title, date="", count="", price="", currency="", partnumber="", supplier="0", description=""):
 		QtGui.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)
 		self.setWindowModality(QtCore.Qt.ApplicationModal)
