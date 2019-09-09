@@ -6,4 +6,4 @@ Although it is under development, you can manage parts, categories, purchases, s
 
 ![Alt text](kcpm.png?raw=true "Main Window")
 
-In the src folder you can find the configuration files for pyInstaller in order you can convert the program to exe file under Windows systems. Also you get the database.sql file to recreate database in the server.
+In the contrib folder you can find a script to run pyInstaller and the configuration files for pyInstaller in order you can convert the program to exe file under Windows systems. Also you get the database.sql file to recreate database in the server.
