@@ -247,14 +247,14 @@ class Kpm_Db():
 			for key in where:
 				if w != "":
 					w += " AND "
-				if type(where[key]) in [str, unicode]:
-					w += unicode(key) + " LIKE '" + unicode(where[key]) + "'"
-				else:
-					w += unicode(key) + "='" + unicode(where[key]) + "'"
+			#	if type(where[key]) in [str, unicode]:
+			#		w += str(key) + " LIKE '" + str(where[key]) + "'"
+			#	else:
+				w += str(key) + "='" + str(where[key]) + "'"
 			query += " WHERE " + w;
 		if sort != None:
 			query += " ORDER BY " + sort
-		#print(query)
+		print(query)
 		cursor.execute(query)
 		rows = cursor.fetchall()
 		cursor.close()
@@ -272,8 +272,8 @@ class Kpm_Db():
 				names += ", "
 				values += ", "
 			first = 0
-			names += "`" + unicode(key) + "`"
-			values += "'" + unicode(data[key]) + "'"
+			names += "`" + str(key) + "`"
+			values += "'" + str(data[key]) + "'"
 		names += ")"
 		values += ")"
 
@@ -295,14 +295,14 @@ class Kpm_Db():
 			if values != "":
 				values += ", "
 			# first = 0
-			values += unicode(key) + "='" + unicode(data[key]) + "'"
+			values += str(key) + "='" + str(data[key]) + "'"
 
 		w = ""
 		for key in where:
 			if w != "":
 				w += " AND "
 			# first = 0
-			w += unicode(key) + "='" + unicode(where[key]) + "'"
+			w += str(key) + "='" + str(where[key]) + "'"
 
 		query = "UPDATE " + table + " SET " + values + " WHERE " + w + ";"
 		# print(query)
@@ -321,10 +321,10 @@ class Kpm_Db():
 			if w != "":
 				w += " AND "
 			# first = 0
-			if type(where[key]) in [str, unicode]:
-				w += unicode(key) + " LIKE '" + unicode(where[key]) + "'"
-			else:
-				w += unicode(key) + "='" + unicode(where[key]) + "'"
+			#if type(where[key]) in [str, unicode]:
+				w += str(key) + " LIKE '" + str(where[key]) + "'"
+		#	else:
+			#	w += unicode(key) + "='" + unicode(where[key]) + "'"
 
 		query = "DELETE FROM " + table + " WHERE " + w + ";"
 		#print(query)

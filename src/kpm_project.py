@@ -17,7 +17,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 sqlprofields = [
 	'id', 
@@ -32,59 +32,59 @@ sqlprofields = [
 # ManufacturerDialog
 # ---------------------------------------------------------
 
-class ProjectsDialog(QtGui.QDialog):
+class ProjectsDialog(QtWidgets.QDialog):
 	def __init__(self, parent, title, shortname="", fullname="", priority="", time="", note=""):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)
 #		self.setWindowModality(QtCore.Qt.ApplicationModal)
-		self.layout = QtGui.QVBoxLayout()
+		self.layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.layout)					
 
-		self.form_layout1 = QtGui.QHBoxLayout()
-		self.shortnametext = QtGui.QLabel("Short name")
+		self.form_layout1 = QtWidgets.QHBoxLayout()
+		self.shortnametext = QtWidgets.QLabel("Short name")
 		self.form_layout1.addWidget(self.shortnametext)
-		self.shortname = QtGui.QLineEdit(self) 
+		self.shortname = QtWidgets.QLineEdit(self) 
 		self.shortname.setText(shortname)
 		self.form_layout1.addWidget(self.shortname)
 		self.layout.addLayout(self.form_layout1)			
 		
-		self.form_layout2 = QtGui.QHBoxLayout()
-		self.fullnametext = QtGui.QLabel("Full name")
+		self.form_layout2 = QtWidgets.QHBoxLayout()
+		self.fullnametext = QtWidgets.QLabel("Full name")
 		self.form_layout2.addWidget(self.fullnametext)
-		self.fullname = QtGui.QLineEdit(self) 
+		self.fullname = QtWidgets.QLineEdit(self) 
 		self.fullname.setText(fullname)
 		self.form_layout2.addWidget(self.fullname)
 		self.layout.addLayout(self.form_layout2)
 
-		self.form_layout3 = QtGui.QHBoxLayout()
-		self.prioritytext = QtGui.QLabel("Priority")
+		self.form_layout3 = QtWidgets.QHBoxLayout()
+		self.prioritytext = QtWidgets.QLabel("Priority")
 		self.form_layout3.addWidget(self.prioritytext)
-		self.priority = QtGui.QLineEdit(self) 
+		self.priority = QtWidgets.QLineEdit(self) 
 		self.priority.setText(priority)
 		self.form_layout3.addWidget(self.priority)
 		self.layout.addLayout(self.form_layout3)
 		
-		self.form_layout4 = QtGui.QHBoxLayout()
-		self.timetext = QtGui.QLabel("time")
+		self.form_layout4 = QtWidgets.QHBoxLayout()
+		self.timetext = QtWidgets.QLabel("time")
 		self.form_layout4.addWidget(self.timetext)
-		self.time = QtGui.QLineEdit(self) 
+		self.time = QtWidgets.QLineEdit(self) 
 		self.time.setText(time)
 		self.form_layout4.addWidget(self.time)
 		self.layout.addLayout(self.form_layout4)					
 				
-		self.form_layout5 = QtGui.QHBoxLayout()
-		self.notetext = QtGui.QLabel("Note")
+		self.form_layout5 = QtWidgets.QHBoxLayout()
+		self.notetext = QtWidgets.QLabel("Note")
 		self.form_layout5.addWidget(self.notetext)
-		self.note = QtGui.QPlainTextEdit(self) 
+		self.note = QtWidgets.QPlainTextEdit(self) 
 		self.note.setPlainText(note)
 		self.form_layout5.addWidget(self.note)
 		self.layout.addLayout(self.form_layout5)			
 
-		self.button_layout = QtGui.QHBoxLayout()
-		self.pb_ok = QtGui.QPushButton(self)
+		self.button_layout = QtWidgets.QHBoxLayout()
+		self.pb_ok = QtWidgets.QPushButton(self)
 		self.pb_ok.setText("OK")
 		self.button_layout.addWidget(self.pb_ok)
-		self.pb_cancel = QtGui.QPushButton(self)
+		self.pb_cancel = QtWidgets.QPushButton(self)
 		self.pb_cancel.setText("Cancel")
 		self.button_layout.addWidget(self.pb_cancel)
 									
@@ -103,10 +103,10 @@ class ProjectsDialog(QtGui.QDialog):
 # Manufacturers Frame
 # ---------------------------------------------------------
 
-class ProjectsFrame(QtGui.QDialog):
+class ProjectsFrame(QtWidgets.QDialog):
 	
 	def keyPressEvent(self, event):
-		if type(event) == QtGui.QKeyEvent:
+		if type(event) == QtWidgets.QKeyEvent:
 			key = event.key()
 			#print hex(key)
 			if key == 0x1000007:
@@ -120,42 +120,44 @@ class ProjectsFrame(QtGui.QDialog):
 			event.ignore()
 				
 	def __init__(self, parent, title):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)
 #		self.setWindowModality(QtCore.Qt.ApplicationModal)
-		self.layout = QtGui.QVBoxLayout()
+		self.layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.layout)					
 
-		self.form_layout1 = QtGui.QVBoxLayout()
-		self.protext = QtGui.QLabel("Projects")
+		self.form_layout1 = QtWidgets.QVBoxLayout()
+		self.protext = QtWidgets.QLabel("Projects")
 		self.form_layout1.addWidget(self.protext)		
-		self.pro_ctrl = QtGui.QTableWidget()
-		self.pro_ctrl.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)		
+		self.pro_ctrl = QtWidgets.QTableWidget()
+		self.pro_ctrl.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)		
 		self.pro_ctrl.verticalHeader().setVisible(False)
 		self.pro_ctrl.horizontalHeader().setVisible(True)			
 		self.pro_ctrl.setRowCount(0)
 		self.pro_ctrl.setColumnCount(6)
 		header=self.pro_ctrl.horizontalHeader()
-		header.hideSection(0)		
-		header.setResizeMode(QtGui.QHeaderView.ResizeToContents)
-		header.setResizeMode(5,QtGui.QHeaderView.Stretch)		
-		self.pro_ctrl.setHorizontalHeaderLabels(QtCore.QStringList(["ID","Short name","Full name","Priority","Time Frame","Note"]))			
+		header.hideSection(0)	
+
+		header.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+		header.setSectionResizeMode(5,QtWidgets.QHeaderView.Stretch) 
+		
+		self.pro_ctrl.setHorizontalHeaderLabels(["ID","Short name","Full name","Priority","Time Frame","Note"])
 		self.form_layout1.addWidget(self.pro_ctrl)
 		self.layout.addLayout(self.form_layout1)
 		#self.mfgs_ctrl.itemClicked.connect(self.OnSelect)
 		self.pro_ctrl.itemDoubleClicked.connect(self.OnEdit)
 
-		self.button_layout = QtGui.QHBoxLayout()
-		self.pb_add = QtGui.QPushButton(self)
+		self.button_layout = QtWidgets.QHBoxLayout()
+		self.pb_add = QtWidgets.QPushButton(self)
 		self.pb_add.setText("Add")
 		self.button_layout.addWidget(self.pb_add)
-		self.pb_edit = QtGui.QPushButton(self)
+		self.pb_edit = QtWidgets.QPushButton(self)
 		self.pb_edit.setText("Edit")
 		self.button_layout.addWidget(self.pb_edit)
-		self.pb_delete = QtGui.QPushButton(self)
+		self.pb_delete = QtWidgets.QPushButton(self)
 		self.pb_delete.setText("Delete")
 		self.button_layout.addWidget(self.pb_delete)
-		self.pb_close = QtGui.QPushButton(self)
+		self.pb_close = QtWidgets.QPushButton(self)
 		self.pb_close.setText("Close")
 		self.button_layout.addWidget(self.pb_close)
 									
@@ -175,32 +177,32 @@ class ProjectsFrame(QtGui.QDialog):
 		i = 0
 		self.pro_ctrl.clear()
 		self.pro_ctrl.setRowCount(0)		
-		self.pro_ctrl.setHorizontalHeaderLabels(QtCore.QStringList(["ID","Short name","Full name","Priority","Time Frame","Note"]))		
+		self.pro_ctrl.setHorizontalHeaderLabels(["ID","Short name","Full name","Priority","Time Frame","Note"])	
 		for mfg in mfgs:
 			self.pro_ctrl.insertRow(i)
-			item=QtGui.QTableWidgetItem(QtCore.QString(str(mfg[0])))
+			item=QtWidgets.QTableWidgetItem(str(mfg[0]))
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.pro_ctrl.setItem(i, 0, item)	
-			item=QtGui.QTableWidgetItem(QtCore.QString(mfg[1]))
+			item=QtWidgets.QTableWidgetItem(mfg[1])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.pro_ctrl.setItem(i, 1, item)		
-			item=QtGui.QTableWidgetItem(QtCore.QString(mfg[2]))
+			item=QtWidgets.QTableWidgetItem(mfg[2])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.pro_ctrl.setItem(i, 2, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(mfg[3]))
+			item=QtWidgets.QTableWidgetItem(mfg[3])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.pro_ctrl.setItem(i, 3, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(mfg[4]))
+			item=QtWidgets.QTableWidgetItem(mfg[4])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.pro_ctrl.setItem(i, 4, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(mfg[5]))
+			item=QtWidgets.QTableWidgetItem(mfg[5])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.pro_ctrl.setItem(i, 5, item)
 			i+=1
 				
 	def OnAdd(self):
 		newman = ProjectsDialog(self, "New project")
-		if newman.exec_() == QtGui.QDialog.Accepted:
+		if newman.exec_() == QtWidgets.QDialog.Accepted:
 			fields = {}
 			fields['shortname'] =	newman.shortname.text()
 			fields['fullname'] =	newman.fullname.text()
@@ -223,7 +225,7 @@ class ProjectsFrame(QtGui.QDialog):
 		rows = self.db.Select('projects', sqlprofields, where)
 		fields = rows[0]
 		editman = ProjectsDialog(self, "Edit project", fields[1], fields[2], fields[3], fields[4], fields[5])
-		if editman.exec_() == QtGui.QDialog.Accepted:
+		if editman.exec_() == QtWidgets.QDialog.Accepted:
 			fields = {}
 			fields['shortname'] =	editman.shortname.text()
 			fields['fullname'] =	editman.fullname.text()
@@ -241,12 +243,12 @@ class ProjectsFrame(QtGui.QDialog):
 		self.selected_id = int(item.text())		
 		if self.selected_id == 0:
 			return
-		dlg = QtGui.QMessageBox()
-		dlg.setIcon(QtGui.QMessageBox.Question)
+		dlg = QtWidgets.QMessageBox()
+		dlg.setIcon(QtWidgets.QMessageBox.Question)
 		dlg.setText("Are you sure to delete this project?")
 		dlg.setWindowTitle("Delete project")
-		dlg.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-		if dlg.exec_() == QtGui.QMessageBox.Yes:
+		dlg.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+		if dlg.exec_() == QtWidgets.QMessageBox.Yes:
 			where = {}
 			where['id'] = self.selected_id
 			self.db.Delete('projects', where)

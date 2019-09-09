@@ -21,8 +21,8 @@ sqlconfig = {
 	'charset': 'utf8',
 	'use_unicode':True,	
   'user': 'kicadpartman',
-  'password': 'hoadslj_45%',
-  'host': 'msr.zapto.org',
+  'password': '',
+  'host': '',
   'database': 'kicadpartman',
   'raise_on_warnings': True
 }
@@ -31,7 +31,7 @@ sqlconfig1 = {
 	'charset': 'utf8',
 	'use_unicode':True,	
   'user': 'kicadpartman',
-  'password': 'hoadslj_45%',
+  'password': '',
   'host': '192.168.1.100',
   'database': 'kicadpartman',
   'raise_on_warnings': True

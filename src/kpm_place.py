@@ -17,7 +17,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 sqlplacesfields = [
 	'id', 
@@ -31,51 +31,51 @@ sqlplacesfields = [
 # ManufacturerDialog
 # ---------------------------------------------------------
 
-class PlacesDialog(QtGui.QDialog):
+class PlacesDialog(QtWidgets.QDialog):
 	def __init__(self, parent, title, shortname="", fullname="", www="", note=""):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)
 #		self.setWindowModality(QtCore.Qt.ApplicationModal)
-		self.layout = QtGui.QVBoxLayout()
+		self.layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.layout)					
 
-		self.form_layout1 = QtGui.QHBoxLayout()
-		self.shortnametext = QtGui.QLabel("Short name")
+		self.form_layout1 = QtWidgets.QHBoxLayout()
+		self.shortnametext = QtWidgets.QLabel("Short name")
 		self.form_layout1.addWidget(self.shortnametext)
-		self.shortname = QtGui.QLineEdit(self) 
+		self.shortname = QtWidgets.QLineEdit(self) 
 		self.shortname.setText(shortname)
 		self.form_layout1.addWidget(self.shortname)
 		self.layout.addLayout(self.form_layout1)			
 		
-		self.form_layout2 = QtGui.QHBoxLayout()
-		self.fullnametext = QtGui.QLabel("Full name")
+		self.form_layout2 = QtWidgets.QHBoxLayout()
+		self.fullnametext = QtWidgets.QLabel("Full name")
 		self.form_layout2.addWidget(self.fullnametext)
-		self.fullname = QtGui.QLineEdit(self) 
+		self.fullname = QtWidgets.QLineEdit(self) 
 		self.fullname.setText(fullname)
 		self.form_layout2.addWidget(self.fullname)
 		self.layout.addLayout(self.form_layout2)
 
-		self.form_layout3 = QtGui.QHBoxLayout()
-		self.wwwtext = QtGui.QLabel("Building")
+		self.form_layout3 = QtWidgets.QHBoxLayout()
+		self.wwwtext = QtWidgets.QLabel("Building")
 		self.form_layout3.addWidget(self.wwwtext)
-		self.www = QtGui.QLineEdit(self) 
+		self.www = QtWidgets.QLineEdit(self) 
 		self.www.setText(www)
 		self.form_layout3.addWidget(self.www)
 		self.layout.addLayout(self.form_layout3)					
 				
-		self.form_layout4 = QtGui.QHBoxLayout()
-		self.notetext = QtGui.QLabel("Note")
+		self.form_layout4 = QtWidgets.QHBoxLayout()
+		self.notetext = QtWidgets.QLabel("Note")
 		self.form_layout4.addWidget(self.notetext)
-		self.note = QtGui.QPlainTextEdit(self) 
+		self.note = QtWidgets.QPlainTextEdit(self) 
 		self.note.setPlainText(note)
 		self.form_layout4.addWidget(self.note)
 		self.layout.addLayout(self.form_layout4)			
 
-		self.button_layout = QtGui.QHBoxLayout()
-		self.pb_ok = QtGui.QPushButton(self)
+		self.button_layout = QtWidgets.QHBoxLayout()
+		self.pb_ok = QtWidgets.QPushButton(self)
 		self.pb_ok.setText("OK")
 		self.button_layout.addWidget(self.pb_ok)
-		self.pb_cancel = QtGui.QPushButton(self)
+		self.pb_cancel = QtWidgets.QPushButton(self)
 		self.pb_cancel.setText("Cancel")
 		self.button_layout.addWidget(self.pb_cancel)
 									
@@ -94,10 +94,10 @@ class PlacesDialog(QtGui.QDialog):
 # Manufacturers Frame
 # ---------------------------------------------------------
 
-class PlacesFrame(QtGui.QDialog):
+class PlacesFrame(QtWidgets.QDialog):
 	
 	def keyPressEvent(self, event):
-		if type(event) == QtGui.QKeyEvent:
+		if type(event) == QtWidgets.QKeyEvent:
 			key = event.key()
 			if key == 0x1000007:
 				self.OnDelete()
@@ -110,42 +110,46 @@ class PlacesFrame(QtGui.QDialog):
 			event.ignore()
 				
 	def __init__(self, parent, title):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)
 #		self.setWindowModality(QtCore.Qt.ApplicationModal)
-		self.layout = QtGui.QVBoxLayout()
+		self.layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.layout)					
 
-		self.form_layout1 = QtGui.QVBoxLayout()
-		self.placetext = QtGui.QLabel("Places")
+		self.form_layout1 = QtWidgets.QVBoxLayout()
+		self.placetext = QtWidgets.QLabel("Places")
 		self.form_layout1.addWidget(self.placetext)		
-		self.place_ctrl = QtGui.QTableWidget()
-		self.place_ctrl.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)		
+		self.place_ctrl = QtWidgets.QTableWidget()
+		self.place_ctrl.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)		
 		self.place_ctrl.verticalHeader().setVisible(False)
 		self.place_ctrl.horizontalHeader().setVisible(True)			
 		self.place_ctrl.setRowCount(0)
 		self.place_ctrl.setColumnCount(5)
 		header=self.place_ctrl.horizontalHeader()
-		header.hideSection(0)		
-		header.setResizeMode(QtGui.QHeaderView.ResizeToContents)
-		header.setResizeMode(4,QtGui.QHeaderView.Stretch)		
-		self.place_ctrl.setHorizontalHeaderLabels(QtCore.QStringList(["ID","Short name","Full name","WWW","Note"]))			
+		header.hideSection(0)
+		
+		header.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+		header.setSectionResizeMode(4,QtWidgets.QHeaderView.Stretch) 
+		
+#		header.setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+#		header.setResizeMode(4,QtWidgets.QHeaderView.Stretch)		
+		self.place_ctrl.setHorizontalHeaderLabels(["ID","Short name","Full name","WWW","Note"])		
 		self.form_layout1.addWidget(self.place_ctrl)
 		self.layout.addLayout(self.form_layout1)
 		#self.mfgs_ctrl.itemClicked.connect(self.OnSelect)
 		self.place_ctrl.itemDoubleClicked.connect(self.OnEdit)
 
-		self.button_layout = QtGui.QHBoxLayout()
-		self.pb_add = QtGui.QPushButton(self)
+		self.button_layout = QtWidgets.QHBoxLayout()
+		self.pb_add = QtWidgets.QPushButton(self)
 		self.pb_add.setText("Add")
 		self.button_layout.addWidget(self.pb_add)
-		self.pb_edit = QtGui.QPushButton(self)
+		self.pb_edit = QtWidgets.QPushButton(self)
 		self.pb_edit.setText("Edit")
 		self.button_layout.addWidget(self.pb_edit)
-		self.pb_delete = QtGui.QPushButton(self)
+		self.pb_delete = QtWidgets.QPushButton(self)
 		self.pb_delete.setText("Delete")
 		self.button_layout.addWidget(self.pb_delete)
-		self.pb_close = QtGui.QPushButton(self)
+		self.pb_close = QtWidgets.QPushButton(self)
 		self.pb_close.setText("Close")
 		self.button_layout.addWidget(self.pb_close)
 									
@@ -165,29 +169,29 @@ class PlacesFrame(QtGui.QDialog):
 		i = 0
 		self.place_ctrl.clear()
 		self.place_ctrl.setRowCount(0)		
-		self.place_ctrl.setHorizontalHeaderLabels(QtCore.QStringList(["ID","Short name","Full name","Building","Note"]))		
+		self.place_ctrl.setHorizontalHeaderLabels(["ID","Short name","Full name","Building","Note"])		
 		for place in places:
 			self.place_ctrl.insertRow(i)
-			item=QtGui.QTableWidgetItem(QtCore.QString(str(place[0])))
+			item=QtWidgets.QTableWidgetItem(str(place[0]))
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.place_ctrl.setItem(i, 0, item)	
-			item=QtGui.QTableWidgetItem(QtCore.QString(place[1]))
+			item=QtWidgets.QTableWidgetItem(place[1])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.place_ctrl.setItem(i, 1, item)		
-			item=QtGui.QTableWidgetItem(QtCore.QString(place[2]))
+			item=QtWidgets.QTableWidgetItem(place[2])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.place_ctrl.setItem(i, 2, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(place[3]))
+			item=QtWidgets.QTableWidgetItem(place[3])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.place_ctrl.setItem(i, 3, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(place[4]))
+			item=QtWidgets.QTableWidgetItem(place[4])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.place_ctrl.setItem(i, 4, item)
 			i+=1
 				
 	def OnAdd(self):
 		newman = PlacesDialog(self, "New place")
-		if newman.exec_() == QtGui.QDialog.Accepted:
+		if newman.exec_() == QtWidgets.QDialog.Accepted:
 			fields = {}
 			fields['shortname'] =	newman.shortname.text()
 			fields['fullname'] =	newman.fullname.text()
@@ -209,7 +213,7 @@ class PlacesFrame(QtGui.QDialog):
 		rows = self.db.Select('places', sqlplacesfields, where)
 		fields = rows[0]
 		editman = PlacesDialog(self, "Edit Places", fields[1], fields[2], fields[3], fields[4])
-		if editman.exec_() == QtGui.QDialog.Accepted:
+		if editman.exec_() == QtWidgets.QDialog.Accepted:
 			fields = {}
 			fields['shortname'] =	editman.shortname.text()
 			fields['fullname'] =	editman.fullname.text()
@@ -226,12 +230,12 @@ class PlacesFrame(QtGui.QDialog):
 		self.selected_id = int(item.text())		
 		if self.selected_id == 0:
 			return
-		dlg = QtGui.QMessageBox()
-		dlg.setIcon(QtGui.QMessageBox.Question)
+		dlg = QtWidgets.QMessageBox()
+		dlg.setIcon(QtWidgets.QMessageBox.Question)
 		dlg.setText("Are you sure to delete this place?")
 		dlg.setWindowTitle("Delete place")
-		dlg.setStandardButtons(QtGui.QMessageBox.Yes | QtGui.QMessageBox.No)
-		if dlg.exec_() == QtGui.QMessageBox.Yes:
+		dlg.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+		if dlg.exec_() == QtWidgets.QMessageBox.Yes:
 			where = {}
 			where['id'] = self.selected_id
 			self.db.Delete('places', where)

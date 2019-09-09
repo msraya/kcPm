@@ -375,7 +375,7 @@ class AnnotateFrame(wx.Dialog):
 		i = 0
 		for part in parts:
 			item = self.parts_ctrl.InsertStringItem(i, part[1])
-			self.parts_ctrl.SetItemData(item, long(part[0]))
+			self.parts_ctrl.SetItemData(item, int(part[0]))
 			i+=1
 		self.num_parts = i
 
@@ -405,4 +405,4 @@ class AnnotateFrame(wx.Dialog):
 				value = kpm_common.val2elv(prop[i])
 			else:
 				value = prop[i]
-			self.prop_ctrl.SetStringItem(i, 1, unicode(value))
+			self.prop_ctrl.SetStringItem(i, 1, str(value))

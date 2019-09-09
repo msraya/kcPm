@@ -17,11 +17,10 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 import kpm_config
 import kpm_db
 import kpm_common
-from PyQt4.Qt import QString
 
 currencylst = ['EUR', 'USD', 'CZK']
 
@@ -54,89 +53,89 @@ sqlflowfields = [
 # StockReceiveDialog
 # ---------------------------------------------------------
 
-class StockReceiveDialog(QtGui.QDialog):
+class StockReceiveDialog(QtWidgets.QDialog):
 	def __init__(self, parent, title, date="", count="", price="", currency="", partnumber="", supplier="0", description=""):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)
 		self.setWindowModality(QtCore.Qt.ApplicationModal)
-		self.layout = QtGui.QVBoxLayout()
+		self.layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.layout)
 		self.db = parent.db
 		
-		self.form_layout1 = QtGui.QHBoxLayout()
-		self.totext = QtGui.QLabel("Date")
+		self.form_layout1 = QtWidgets.QHBoxLayout()
+		self.totext = QtWidgets.QLabel("Date")
 		self.form_layout1.addWidget(self.totext)
 		t = QtCore.QDate().currentDate()
-		self.dateto = QtGui.QDateEdit(self)
+		self.dateto = QtWidgets.QDateEdit(self)
 		self.dateto.setDisplayFormat('dd-MM-yyyy')
 		self.dateto.setCalendarPopup(True)
 		#print date
 		if date == "": self.dateto.setDate(t)
-		else: self.dateto.setDateTime(QtCore.QDateTime.fromString(QString(str(date)),"yyyy-MM-dd HH:mm:ss"))	
+		else: self.dateto.setDateTime(QtCore.QDateTime.fromString(str(date),"yyyy-MM-dd HH:mm:ss"))	
 		#self.countctrl.setText(shortname)
 		self.form_layout1.addWidget(self.dateto)
 		self.layout.addLayout(self.form_layout1)
 							
 
-		self.form_layout2 = QtGui.QHBoxLayout()
-		self.counttext = QtGui.QLabel("Count")
+		self.form_layout2 = QtWidgets.QHBoxLayout()
+		self.counttext = QtWidgets.QLabel("Count")
 		self.form_layout2.addWidget(self.counttext)
-		self.countctrl = QtGui.QLineEdit(self) 
-		self.countctrl.setText(QString(str(count)))
+		self.countctrl = QtWidgets.QLineEdit(self) 
+		self.countctrl.setText(str(count))
 		self.form_layout2.addWidget(self.countctrl)
 		self.layout.addLayout(self.form_layout2)		
 		
-		self.form_layout3 = QtGui.QHBoxLayout()
-		self.pricetext = QtGui.QLabel("Price")
+		self.form_layout3 = QtWidgets.QHBoxLayout()
+		self.pricetext = QtWidgets.QLabel("Price")
 		self.form_layout3.addWidget(self.pricetext)
-		self.pricectrl = QtGui.QLineEdit(self) 
-		self.pricectrl.setText(QString(str(price)))
+		self.pricectrl = QtWidgets.QLineEdit(self) 
+		self.pricectrl.setText(str(price))
 		self.form_layout3.addWidget(self.pricectrl)
 		self.layout.addLayout(self.form_layout3)
 		
-		self.form_layout4 = QtGui.QHBoxLayout()
-		self.currtext = QtGui.QLabel("Currency")
+		self.form_layout4 = QtWidgets.QHBoxLayout()
+		self.currtext = QtWidgets.QLabel("Currency")
 		self.form_layout4.addWidget(self.currtext)
-		self.currencyctrl = QtGui.QComboBox();
+		self.currencyctrl = QtWidgets.QComboBox();
 		self.currencyctrl.addItems(currencylst)
 		self.currencyctrl.setEditable(False)
 		self.currencyctrl.setCurrentIndex(kpm_common.IndexOf(currencylst, currency))		
 		self.form_layout4.addWidget(self.currencyctrl)
 		self.layout.addLayout(self.form_layout4)
 
-		self.form_layout5 = QtGui.QHBoxLayout()
-		self.partnumbertext = QtGui.QLabel("Part Number")
+		self.form_layout5 = QtWidgets.QHBoxLayout()
+		self.partnumbertext = QtWidgets.QLabel("Part Number")
 		self.form_layout5.addWidget(self.partnumbertext)
-		self.partnumctrl = QtGui.QLineEdit(self) 
+		self.partnumctrl = QtWidgets.QLineEdit(self) 
 		self.partnumctrl.setText(partnumber)		
 		self.form_layout5.addWidget(self.partnumctrl)
 		self.layout.addLayout(self.form_layout5)		
 		
-		self.form_layout6 = QtGui.QHBoxLayout()
-		self.suppliertext = QtGui.QLabel("Supplier")
+		self.form_layout6 = QtWidgets.QHBoxLayout()
+		self.suppliertext = QtWidgets.QLabel("Supplier")
 		self.form_layout6.addWidget(self.suppliertext)
 		lista = self.db.GetSupplierList()	
-		self.supplier = QtGui.QComboBox();
+		self.supplier = QtWidgets.QComboBox();
 		self.supplier.addItems(lista)
-		self.supplier.setCurrentIndex(int(supplier))	
+		self.supplier.setCurrentIndex(int(supplier))		
 		self.supplier.setEditable(False)
 		self.form_layout6.addWidget(self.supplier)
 		self.layout.addLayout(self.form_layout6)						
 
-		self.form_layout7 = QtGui.QHBoxLayout()
-		self.descrtext = QtGui.QLabel("Description")
+		self.form_layout7 = QtWidgets.QHBoxLayout()
+		self.descrtext = QtWidgets.QLabel("Description")
 		self.form_layout7.addWidget(self.descrtext)
-		self.description = QtGui.QPlainTextEdit(self)
+		self.description = QtWidgets.QPlainTextEdit(self)
 		self.description.setPlainText(description)
 		self.form_layout7.addWidget(self.description)
 		self.layout.addLayout(self.form_layout7)	
 
-		self.button_layout = QtGui.QHBoxLayout()
+		self.button_layout = QtWidgets.QHBoxLayout()
 					
-		self.pb_ok = QtGui.QPushButton(self)
+		self.pb_ok = QtWidgets.QPushButton(self)
 		self.pb_ok.setText("OK")
 		self.button_layout.addWidget(self.pb_ok)
-		self.pb_cancel = QtGui.QPushButton(self)
+		self.pb_cancel = QtWidgets.QPushButton(self)
 		self.pb_cancel.setText("Cancel")
 		self.button_layout.addWidget(self.pb_cancel)
 									
@@ -159,36 +158,36 @@ class StockReceiveDialog(QtGui.QDialog):
 # StockDispatchDialog
 # ---------------------------------------------------------
 
-class StockDispatchDialog(QtGui.QDialog):
+class StockDispatchDialog(QtWidgets.QDialog):
 	def __init__(self, parent, title):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)		
 		self.setWindowModality(QtCore.Qt.ApplicationModal)
-		self.layout = QtGui.QVBoxLayout()
+		self.layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.layout)					
 
-		self.form_layout1 = QtGui.QHBoxLayout()
-		self.counttext = QtGui.QLabel("Count")
+		self.form_layout1 = QtWidgets.QHBoxLayout()
+		self.counttext = QtWidgets.QLabel("Count")
 		self.form_layout1.addWidget(self.counttext)
-		self.countctrl = QtGui.QLineEdit(self) 
+		self.countctrl = QtWidgets.QLineEdit(self) 
 		#self.countctrl.setText(shortname)
 		self.form_layout1.addWidget(self.countctrl)
 		self.layout.addLayout(self.form_layout1)
 		
-		self.form_layout2 = QtGui.QHBoxLayout()
-		self.descrtext = QtGui.QLabel("Description")
+		self.form_layout2 = QtWidgets.QHBoxLayout()
+		self.descrtext = QtWidgets.QLabel("Description")
 		self.form_layout2.addWidget(self.descrtext)
-		self.description = QtGui.QPlainTextEdit(self)
+		self.description = QtWidgets.QPlainTextEdit(self)
 		#self.pricectrl.setText(shortname)
 		self.form_layout2.addWidget(self.description)
 		self.layout.addLayout(self.form_layout2)	
 
-		self.button_layout = QtGui.QHBoxLayout()
+		self.button_layout = QtWidgets.QHBoxLayout()
 					
-		self.pb_ok = QtGui.QPushButton(self)
+		self.pb_ok = QtWidgets.QPushButton(self)
 		self.pb_ok.setText("OK")
 		self.button_layout.addWidget(self.pb_ok)
-		self.pb_cancel = QtGui.QPushButton(self)
+		self.pb_cancel = QtWidgets.QPushButton(self)
 		self.pb_cancel.setText("Cancel")
 		self.button_layout.addWidget(self.pb_cancel)
 									
@@ -208,44 +207,44 @@ class StockDispatchDialog(QtGui.QDialog):
 # BOMDispatchDialog
 # ---------------------------------------------------------
 
-class BOMDispatchDialog(QtGui.QDialog):
+class BOMDispatchDialog(QtWidgets.QDialog):
 	def __init__(self, parent, title):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)		
 		self.setWindowModality(QtCore.Qt.ApplicationModal)
-		self.layout = QtGui.QVBoxLayout()
+		self.layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.layout)					
 
-		self.form_layout1 = QtGui.QVBoxLayout()
-		self.bomtext = QtGui.QLabel("BOM")
+		self.form_layout1 = QtWidgets.QVBoxLayout()
+		self.bomtext = QtWidgets.QLabel("BOM")
 		self.form_layout1.addWidget(self.bomtext)
-		self.bomctrl = QtGui.QListWidget(self) 
+		self.bomctrl = QtWidgets.QListWidget(self) 
 		#self.countctrl.setText(shortname)
 		self.form_layout1.addWidget(self.bomctrl)
 		self.layout.addLayout(self.form_layout1)
 		
-		self.form_layout2 = QtGui.QHBoxLayout()
-		self.counttext = QtGui.QLabel("Count")
+		self.form_layout2 = QtWidgets.QHBoxLayout()
+		self.counttext = QtWidgets.QLabel("Count")
 		self.form_layout2.addWidget(self.counttext)
-		self.countctrl = QtGui.QLineEdit(self) 
+		self.countctrl = QtWidgets.QLineEdit(self) 
 		#self.countctrl.setText(shortname)
 		self.form_layout1.addWidget(self.countctrl)
 		self.layout.addLayout(self.form_layout2)
 		
-		self.form_layout3 = QtGui.QHBoxLayout()
-		self.descrtext = QtGui.QLabel("Description")
+		self.form_layout3 = QtWidgets.QHBoxLayout()
+		self.descrtext = QtWidgets.QLabel("Description")
 		self.form_layout3.addWidget(self.descrtext)
-		self.description = QtGui.QPlainTextEdit(self)
+		self.description = QtWidgets.QPlainTextEdit(self)
 		#self.pricectrl.setText(shortname)
 		self.form_layout3.addWidget(self.description)
 		self.layout.addLayout(self.form_layout3)	
 
-		self.button_layout = QtGui.QHBoxLayout()
+		self.button_layout = QtWidgets.QHBoxLayout()
 					
-		self.pb_ok = QtGui.QPushButton(self)
+		self.pb_ok = QtWidgets.QPushButton(self)
 		self.pb_ok.setText("OK")
 		self.button_layout.addWidget(self.pb_ok)
-		self.pb_cancel = QtGui.QPushButton(self)
+		self.pb_cancel = QtWidgets.QPushButton(self)
 		self.pb_cancel.setText("Cancel")
 		self.button_layout.addWidget(self.pb_cancel)
 									
@@ -272,7 +271,7 @@ class BOMDispatchDialog(QtGui.QDialog):
 		self.bomctrl.DeleteAllItems()
 		for bom in boms:
 			self.bomctrl.InsertStringItem(i, bom[1]+' v. '+str(bom[2]))
-			self.bomctrl.SetItemData(i, long(bom[0]))
+			self.bomctrl.SetItemData(i, int(bom[0]))
 			i+=1
 	
 	def OnBOM(self, event):
@@ -284,21 +283,21 @@ class BOMDispatchDialog(QtGui.QDialog):
 # StockFlow Frame
 # ---------------------------------------------------------
 
-class StockFlow(QtGui.QDialog):
+class StockFlow(QtWidgets.QDialog):
 	def __init__(self, parent, title="Stock flow"):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setWindowTitle(title)		
 		self.setWindowModality(QtCore.Qt.ApplicationModal)
-		self.layout = QtGui.QVBoxLayout()
+		self.layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.layout)					
 		self.db = parent.db
 
-		self.form_layout1 = QtGui.QHBoxLayout()
-		self.fromtext = QtGui.QLabel("From")
+		self.form_layout1 = QtWidgets.QHBoxLayout()
+		self.fromtext = QtWidgets.QLabel("From")
 		self.form_layout1.addWidget(self.fromtext)
 		t = QtCore.QDate().currentDate()
 		t.addDays(-30)
-		self.datefrom = QtGui.QDateEdit(self)
+		self.datefrom = QtWidgets.QDateEdit(self)
 		self.datefrom.setDisplayFormat('dd-MM-yyyy')
 		self.datefrom.setCalendarPopup(True)
 		self.datefrom.setDate(t)		
@@ -306,11 +305,11 @@ class StockFlow(QtGui.QDialog):
 		self.form_layout1.addWidget(self.datefrom)
 		self.layout.addLayout(self.form_layout1)
 		
-		self.form_layout2 = QtGui.QHBoxLayout()
-		self.totext = QtGui.QLabel("To")
+		self.form_layout2 = QtWidgets.QHBoxLayout()
+		self.totext = QtWidgets.QLabel("To")
 		self.form_layout2.addWidget(self.totext)
 		t = QtCore.QDate().currentDate()
-		self.dateto = QtGui.QDateEdit(self)
+		self.dateto = QtWidgets.QDateEdit(self)
 		self.dateto.setDisplayFormat('dd-MM-yyyy')
 		self.dateto.setCalendarPopup(True)
 		self.dateto.setDate(t)		
@@ -320,25 +319,30 @@ class StockFlow(QtGui.QDialog):
 		self.datefrom.dateChanged.connect(self.UpdateFlow)
 		self.dateto.dateChanged.connect(self.UpdateFlow)				
 		
-		self.form_layout3 = QtGui.QVBoxLayout()
-		self.flotext = QtGui.QLabel("Flow-Control")
+		self.form_layout3 = QtWidgets.QVBoxLayout()
+		self.flotext = QtWidgets.QLabel("Flow-Control")
 		self.form_layout3.addWidget(self.flotext)
-		self.flowctrl = QtGui.QTableWidget()
-		self.flowctrl.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)		
+		self.flowctrl = QtWidgets.QTableWidget()
+		self.flowctrl.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)		
 		self.flowctrl.verticalHeader().setVisible(False)
 		self.flowctrl.horizontalHeader().setVisible(True)			
 		self.flowctrl.setRowCount(0)
 		self.flowctrl.setColumnCount(9)
 		header=self.flowctrl.horizontalHeader()
 		header.hideSection(0)		
-		header.setResizeMode(QtGui.QHeaderView.ResizeToContents)
-		header.setResizeMode(8,QtGui.QHeaderView.Stretch)		
-		self.flowctrl.setHorizontalHeaderLabels(QtCore.QStringList(["ID","Date","Part Name","Change","Price","Curr","PartNum","Supplier","Description"]))			
+
+		header.setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+		header.setSectionResizeMode(8,QtWidgets.QHeaderView.Stretch) 
+        
+#		header.setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+#		header.setResizeMode(8,QtWidgets.QHeaderView.Stretch)
+		
+		self.flowctrl.setHorizontalHeaderLabels(["ID","Date","Part Name","Change","Price","Curr","PartNum","Supplier","Description"])			
 		self.form_layout3.addWidget(self.flowctrl)
 		self.layout.addLayout(self.form_layout3)
 
-		self.button_layout = QtGui.QHBoxLayout()
-		self.pb_ok = QtGui.QPushButton(self)
+		self.button_layout = QtWidgets.QHBoxLayout()
+		self.pb_ok = QtWidgets.QPushButton(self)
 		self.pb_ok.setText("Close")
 		self.button_layout.addWidget(self.pb_ok)
 		self.layout.addLayout(self.button_layout)
@@ -356,35 +360,35 @@ class StockFlow(QtGui.QDialog):
 		rows = self.db.GetStockFlow(sqlflowfields, str(where))
 		self.flowctrl.clear()
 		self.flowctrl.setRowCount(0)
-		self.flowctrl.setHorizontalHeaderLabels(QtCore.QStringList(["ID","Date","Part Name","Change","Price","Curr","PartNum","Supplier","Description"]))			
+		self.flowctrl.setHorizontalHeaderLabels(["ID","Date","Part Name","Change","Price","Curr","PartNum","Supplier","Description"])			
 		i = 0
 		for row in rows:
 			self.flowctrl.insertRow(i)
-			item=QtGui.QTableWidgetItem(QtCore.QString(str(row[0])))
+			item=QtWidgets.QTableWidgetItem(str(row[0]))
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )	
 			self.flowctrl.setItem(i, 0, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(row[8].strftime("%d-%m-%Y")))
+			item=QtWidgets.QTableWidgetItem(row[8].strftime("%d-%m-%Y"))
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )					
 			self.flowctrl.setItem(i, 1, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(row[1]))
+			item=QtWidgets.QTableWidgetItem(row[1])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )					
 			self.flowctrl.setItem(i, 2, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(str(row[2])))
+			item=QtWidgets.QTableWidgetItem(str(row[2]))
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )					
 			self.flowctrl.setItem(i, 3, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(str(row[3])))
+			item=QtWidgets.QTableWidgetItem(str(row[3]))
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )								
 			self.flowctrl.setItem(i, 4, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(row[4]))
+			item=QtWidgets.QTableWidgetItem(row[4])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )
 			self.flowctrl.setItem(i, 5, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(row[5]))
+			item=QtWidgets.QTableWidgetItem(row[5])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )
 			self.flowctrl.setItem(i, 6, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(self.db.GetSupplierName(int(row[6])+1)))
+			item=QtWidgets.QTableWidgetItem(self.db.GetSupplierName(int(row[6])+1))
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )
 			self.flowctrl.setItem(i, 7, item)
-			item=QtGui.QTableWidgetItem(QtCore.QString(row[7]))
+			item=QtWidgets.QTableWidgetItem(row[7])
 			item.setFlags( QtCore.Qt.ItemIsSelectable |  QtCore.Qt.ItemIsEnabled )
 			self.flowctrl.setItem(i, 8, item)			
 			i+=1

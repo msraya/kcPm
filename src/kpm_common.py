@@ -17,9 +17,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-from PyQt4 import QtGui
-from PyQt4.QtGui import QMessageBox
-from PyQt4 import QtCore
+from PyQt5 import QtGui, QtWidgets, QtCore
 import re
 
 states = ['Unknown', 'Preliminary', 'In production', 'Not for new designs', 'Obsolete', 'Not working']
@@ -135,25 +133,25 @@ def IndexOf(m_list,elem):
 	#print index
 	return index			
 
-class QHLine(QtGui.QFrame):
+class QHLine(QtWidgets.QFrame):
 	def __init__(self):
 		super(QHLine, self).__init__()
-		self.setFrameShape(QtGui.QFrame.HLine)
-		self.setFrameShadow(QtGui.QFrame.Sunken)
+		self.setFrameShape(QtWidgets.QFrame.HLine)
+		self.setFrameShadow(QtWidgets.QFrame.Sunken)
 
-class QVLine(QtGui.QFrame):
+class QVLine(QtWidgets.QFrame):
 	def __init__(self):
 		super(QVLine, self).__init__()
-		self.setFrameShape(QtGui.QFrame.VLine)
-		self.setFrameShadow(QtGui.QFrame.Sunken)
+		self.setFrameShape(QtWidgets.QFrame.VLine)
+		self.setFrameShadow(QtWidgets.QFrame.Sunken)
 
 def errordialog(texto):
-	msg = QMessageBox(QMessageBox.Critical,"",texto)
+	msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Critical,"",texto)
 	msg.setWindowFlags(QtCore.Qt.Dialog | QtCore.Qt.CustomizeWindowHint);
 	msg.exec_()
 
 def infodialog(texto):
-	msg = QtGui.QMessageBox(QMessageBox.Information,"",texto)
+	msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Information,"",texto)
 	msg.setWindowFlags(QtCore.Qt.Dialog | QtCore.Qt.CustomizeWindowHint);		
 	msg.exec_()
 
